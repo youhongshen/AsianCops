@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="well">
+            {{ page.about_org | richtext }}
+        </div>
+
+        {% include_block page.exec_board %}
+    </div>
+</div>
+{% endblock %}

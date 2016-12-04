@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+{% include_block page.body with page_url=page.url %}
+
+<!--page = {{ page.url }}-->
+<!--page slug = {{ page.slug }}-->
+{% endblock %}

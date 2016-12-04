@@ -1,0 +1,27 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<div class="container-fluid">
+    {% for item in self %}
+    {% if forloop.first %}
+    <div class="row">{% endif %}
+        <div class="col-sm-4" style="margin: 0 0 20px 0;">
+
+            <div class="thumbnail">
+                {% image item.image original as tmp_photo %}
+                <img {{ tmp_photo.attrs }} class="img-responsive img-rounded">
+                {% if item.caption %}
+                <div class="caption">
+                    {{ item.caption }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">{% endif %}
+        {% if forloop.last %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

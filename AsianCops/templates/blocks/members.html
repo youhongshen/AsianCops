@@ -1,0 +1,19 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<ul class="list-group">
+    {% for member in self %}
+    <li class="list-group-item">
+        <div class="media">
+            <div class="media-left">
+                {% image member.photo fill-64x64 as tmp_photo %}
+                <img {{ tmp_photo.attrs }} class="media-object">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ member.name }}</h4>
+                {{ member.bio }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

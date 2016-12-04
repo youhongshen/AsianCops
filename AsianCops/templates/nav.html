@@ -1,0 +1,67 @@
+{% load static wagtailcore_tags %}
+
+<!--<div class="container-fluid">-->
+<nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+
+            <a class="navbar-brand" href="{% slugurl 'home' %}">Asian Cops</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <!-- events -->
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        Events <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% slugurl 'press-release' %}">Press Release</a></li>
+                        <li><a href="{% slugurl 'event-galleries' %}">Event Gallery</a></li>
+                    </ul>
+                </li>
+
+                <!-- programs -->
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        Programs <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% slugurl 'training' %}">Training</a></li>
+                        <li><a href="{% slugurl 'career' %}">Career</a></li>
+                    </ul>
+                </li>
+
+                <!-- about -->
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        About <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% slugurl 'about-us' %}">About Us</a></li>
+                        <li><a href="{% slugurl 'membership' %}">Membership</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <!-- contact us -->
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="{% slugurl 'contact-us' %}">Contact Us</a></li>
+            </ul>
+        </div>
+
+</nav>
+<!--</div>-->

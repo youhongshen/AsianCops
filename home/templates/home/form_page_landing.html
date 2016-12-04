@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="alert alert-success">
+            <strong>{{ page.thank_you_text | richtext }}</strong>
+        </div>
+    </div>
+</div>
+{% endblock %}
