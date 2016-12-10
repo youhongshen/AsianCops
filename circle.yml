@@ -1,0 +1,4 @@
+dependencies:
+  override:
+    - python manage.py collectstatic --no-input
+    - python setup.py sdist
