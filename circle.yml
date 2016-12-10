@@ -6,3 +6,8 @@ dependencies:
 # remove cached dir
 #  post:
 #    - rm -r ~/.gradle
+
+general:
+  artifacts:
+    - "dist/AsianCops-1.0.tar.gz"
+    
