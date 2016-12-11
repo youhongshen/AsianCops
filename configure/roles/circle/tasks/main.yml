@@ -1,0 +1,39 @@
+- name: read token
+  include_vars:
+    file: token.yml
+    name: token
+
+- debug: var=token
+
+- set_fact:
+    circle_url: https://circleci.com/api/v1.1/project/github/youhongshen/AsianCops/latest/artifacts?circle-token={{ token.circle_token }}&branch=master&filter=successful
+    artifact_json_file: /tmp/last_artifact.json
+
+- name: remove tmp file
+  file: name={{ artifact_json_file }} state=absent
+
+# have to use curl instead of built in module
+# because circleCI's json has the format of
+# { "a" : "b" }
+# not sure if it's because of the space before :, the string came out of evaluating the variable
+# look garbled and can't be parsed as json
+- name: lookup artifact URL and write to tmp file
+  shell: "curl '{{ circle_url }}' > {{ artifact_json_file }}"
+
+- name: read from tmp file
+  set_fact:
+    artifact_list: "{{ lookup('file', artifact_json_file ) | from_json }}"
+
+- debug: var=artifact_list
+
+# must use with_items because the json output is a list
+- set_fact:
+    artifact_url: "{{ item.url }}"
+  with_items: "{{ artifact_list }}"
+
+- debug: var=artifact_url
+
+- name: download artifact
+  get_url:
+    url: "{{ artifact_url }}"
+    dest: /tmp

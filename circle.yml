@@ -10,4 +10,3 @@ dependencies:
 general:
   artifacts:
     - "dist/AsianCops-1.0.tar.gz"
-    

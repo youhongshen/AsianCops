@@ -1,0 +1,4 @@
+- name: deploy to AWS
+  hosts: localhost
+  roles:
+  - circle
