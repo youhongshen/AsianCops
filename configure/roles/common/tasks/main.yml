@@ -1,0 +1,7 @@
+- name: read secure vars
+  include_vars:
+    file: secure_vars.yml
+    name: secure_vars
+  tags: always
+
+- debug: var=secure_vars

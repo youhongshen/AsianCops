@@ -1,3 +1,5 @@
 Django>=1.10,<1.11
 wagtail>=1.6,<1.7
 django-bootstrap-form==3.2.1
+# production needs mysql-python
+# however, on redhat, it's a RPM package (yum install MySQL-python)

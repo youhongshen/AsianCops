@@ -1,0 +1,11 @@
+ec2:
+  key_name: wagtail
+  instance_type: t2.micro
+  security_group: launch-wizard-1
+  image: ami-b63769a1
+  vpc_subnet_id: subnet-2f048b02
+rds:
+  instance_type: db.t2.micro
+  vpc: vpc-de7fb3b8
+
+region: us-east-1

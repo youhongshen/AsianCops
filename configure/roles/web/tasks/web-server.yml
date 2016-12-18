@@ -1,0 +1,9 @@
+- name: deliver nginx.repo
+  template: src=nginx.repo dest=/etc/yum.repos.d/
+
+- name: install nginx
+  yum: name=nginx
+
+# TODO make sure the service starts on server restart
+- name: start nginx service
+  service: name=nginx state=started

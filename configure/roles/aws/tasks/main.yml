@@ -1,0 +1,32 @@
+- name: create EC2 instances
+  ec2:
+    key_name: "{{ ec2.key_name }}"
+    instance_type: "{{ ec2.instance_type }}"
+    image: "{{ ec2.image }}"
+    wait: yes
+    assign_public_ip: yes
+    region: "{{ region }}"
+    vpc_subnet_id: "{{ ec2.vpc_subnet_id }}"
+    count: 1
+  register: ec2
+  tags: ec2
+
+- name: create RDS instance
+  rds:
+    command: create
+    instance_name: asian-cops-prod
+    db_engine: MySQL
+    instance_type: "{{ rds.instance_type }}"
+    username: admin
+    password: "{{ secure_vars.rds.master_db_password }}"
+    backup_retention: 7
+    db_name: wagtail
+    engine_version: 5.6.27
+    license_model: general-public-license
+    port: 3306
+    publicly_accessible: yes
+    region: "{{ region }}"
+#    5GB
+    size: 5
+  tags: rds
+

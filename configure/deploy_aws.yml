@@ -1,4 +1,12 @@
-- name: deploy to AWS
+- name: get latest artifact from circle
   hosts: localhost
+  gather_facts: no
   roles:
   - circle
+
+- name: deploy to AWS
+  hosts: localhost
+  gather_facts: no
+  roles:
+  - aws
+  tags: aws

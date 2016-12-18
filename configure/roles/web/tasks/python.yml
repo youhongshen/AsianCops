@@ -1,0 +1,11 @@
+- name: install wget
+  yum: name=wget
+
+- name: install easy_install
+  command: wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+
+- name: install pip
+  easy_install: name=pip
+
+- name: install mysql-python
+  yum: name=MySQL-python

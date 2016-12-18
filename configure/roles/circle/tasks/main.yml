@@ -1,16 +1,9 @@
-- name: read token
-  include_vars:
-    file: token.yml
-    name: token
-
-- debug: var=token
-
 - set_fact:
-    circle_url: https://circleci.com/api/v1.1/project/github/youhongshen/AsianCops/latest/artifacts?circle-token={{ token.circle_token }}&branch=master&filter=successful
+    circle_url: https://circleci.com/api/v1.1/project/github/youhongshen/AsianCops/latest/artifacts?circle-token={{ secure_vars.circle_ci.token }}&branch=master&filter=successful
     artifact_json_file: /tmp/last_artifact.json
 
-- name: remove tmp file
-  file: name={{ artifact_json_file }} state=absent
+#- name: remove tmp file
+#  file: name={{ artifact_json_file }} state=absent
 
 # have to use curl instead of built in module
 # because circleCI's json has the format of
