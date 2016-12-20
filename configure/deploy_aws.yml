@@ -3,6 +3,8 @@
   gather_facts: no
   roles:
   - circle
+  tags:
+  - download
 
 - name: deploy to AWS
   hosts: localhost

@@ -1,12 +1,4 @@
 # stuff from collectstatic
-recursive-include static *
-recursive-include AsianCops/templates *
-recursive-include home/templates *
-recursive-include search/templates *
-# dev mode
-recursive-include AsianCops/static*
-#recursive-include home/static *
-#recursive-include search/static *
+recursive-include AsianCops *
 include *.txt
 include *.md
-include *.ini

@@ -7,7 +7,7 @@ setup(
     include_package_data=True,
     packages=find_packages(exclude=EXCLUDE_FROM_PACKAGES),
     install_requires=open('requirements.txt').readlines(),
-    scripts=['manage.py'],
+    scripts=['AsianCops/manage.py'],
     url='',
     license='',
     author='joan',

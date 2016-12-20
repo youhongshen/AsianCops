@@ -4,6 +4,10 @@
 - name: install nginx
   yum: name=nginx
 
+- name: install gunicorn
+  pip: name=gunicorn
+
 # TODO make sure the service starts on server restart
 - name: start nginx service
   service: name=nginx state=started
+
