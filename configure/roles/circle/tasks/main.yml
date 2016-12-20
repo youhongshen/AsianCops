@@ -1,5 +1,8 @@
+# the "filter" parameter
+# use "completed" to get artifacts that does not have tests
+# use "succssful" to get only artifacts that passes tests
 - set_fact:
-    circle_url: https://circleci.com/api/v1.1/project/github/youhongshen/AsianCops/latest/artifacts?circle-token={{ secure_vars.circle_ci.token }}&branch=master&filter=successful
+    circle_url: https://circleci.com/api/v1.1/project/github/youhongshen/AsianCops/latest/artifacts?circle-token={{ secure_vars.circle_ci.token }}&branch=master&filter=completed
     artifact_json_file: /tmp/last_artifact.json
 
 #- name: remove tmp file
