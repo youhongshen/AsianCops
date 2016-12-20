@@ -1,4 +1,15 @@
-#- name: deploys artifact
+- name: copy artifact to remote
+  copy: src={{ artifact_local_dir }}/{{ artifact }} dest=/tmp force=true
 
-- name: writes secret key file
-  lineinfile: line={{ secure_vars.django.prod_secret_key }} dest={{ artifact_install_dir }}
+- name: deploys artifact
+  pip: name=/tmp/{{ artifact }} virtualenv={{ venv }}
+
+- name: upgrade artifact
+  pip:
+    name: "/tmp/{{ artifact }}"
+    virtualenv: "{{ venv }}"
+    extra_args: "--upgrade --force-reinstall --no-deps"
+  tags: upgrade
+
+#- name: writes secret key file
+#  lineinfile: line={{ secure_vars.django.prod_secret_key }} dest={{ artifact_install_dir }}

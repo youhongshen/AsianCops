@@ -6,9 +6,18 @@
   tags:
   - download
 
-- name: deploy to AWS
+- name: create AWS instances
   hosts: localhost
   gather_facts: no
   roles:
   - aws
-  tags: aws
+
+# this play uses the aws dynamic inventory
+- name: deploy to AWS
+  hosts: ec2
+  user: "{{ deploy_user }}"
+  roles:
+  - web
+  tags:
+  - deploy
+

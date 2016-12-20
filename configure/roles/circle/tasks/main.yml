@@ -26,7 +26,13 @@
 
 - debug: var=artifact_url
 
+- name: remove artifact local dir
+  file: path={{ artifact_local_dir }} state=absent
+
+- name: create artifact local dir
+  file: path={{ artifact_local_dir }} state=directory
+
 - name: download artifact
   get_url:
     url: "{{ artifact_url }}"
-    dest: /tmp
+    dest: "{{ artifact_local_dir }}"

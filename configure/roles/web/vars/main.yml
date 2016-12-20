@@ -1,0 +1,5 @@
+# this is the user id that the app runs under
+app_user: ec2-user
+venv_dir_prefix: /home/{{ app_user }}/venv
+venv_name: asiancops
+venv: "{{ venv_dir_prefix }}/{{ venv_name }}"

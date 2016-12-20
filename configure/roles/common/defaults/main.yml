@@ -1,0 +1,8 @@
+# this user needs to have sudo access w/o password
+deploy_user: ec2-user
+
+artifact_name: AsianCops
+artifact_version: 1.0
+artifact: "{{ artifact_name }}-{{ artifact_version }}.tar.gz"
+
+artifact_local_dir: /tmp/AsianCops
