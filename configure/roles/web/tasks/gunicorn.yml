@@ -1,0 +1,9 @@
+# this task creates the venv and inherits the system level site packages
+# to get access to mysql-python installed via yum
+- name: install gunicorn and venv
+  pip:
+    name: gunicorn
+    virtualenv: "{{ venv }}"
+    virtualenv_site_packages: yes
+  become: yes
+  become_user: "{{ app_user }}"

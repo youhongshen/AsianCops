@@ -1,5 +1,16 @@
-# this is the user id that the app runs under
+# this is the user id and group that the app runs under
 app_user: ec2-user
-venv_dir_prefix: /home/{{ app_user }}/venv
+app_group: ec2-user
+
+app_dir_root: /data/asiancops
+
+venv_dir_prefix: "{{ app_dir_root }}/venv"
 venv_name: asiancops
 venv: "{{ venv_dir_prefix }}/{{ venv_name }}"
+
+db:
+  name: wagtail
+  user: admin
+  port: 3306
+  host:
+

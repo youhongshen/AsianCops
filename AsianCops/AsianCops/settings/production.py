@@ -9,14 +9,20 @@ try:
 except ImportError:
     pass
 
+with open(os.path.join(BASE_DIR, 'db-password.txt')) as f:
+    DB_PW = f.read().strip()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wagtail',
-        'USER': 'admin',
-        'PASSWORD': 'Dev0ps43',
-        'HOST': 'asian-cops-prod.cn0m6pjilrg2.us-east-1.rds.amazonaws.com',
-        'PORT': 3306,
+        # 'NAME': 'wagtail',
+        'NAME': os.getenv('DB_NAME'),
+        # 'USER': 'admin',
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': DB_PW,
+        # 'HOST': 'asian-cops-prod.cn0m6pjilrg2.us-east-1.rds.amazonaws.com',
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
         # figure out how to use the cnf file to hide username/password
         'OPTIONS': {
             # 'read_default_file': '/path/to/my.cnf',

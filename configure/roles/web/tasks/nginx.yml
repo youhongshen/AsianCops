@@ -1,0 +1,19 @@
+- name: deliver nginx.repo
+  template: src=nginx.repo dest=/etc/yum.repos.d/
+  become: yes
+  become_user: root
+
+- name: install nginx
+  yum: name=nginx
+  become: yes
+  become_user: root
+
+- name: configure nginx
+  template: src=nginx_asiancops.conf dest=/etc/nginx/conf.d/asiancops.conf
+  become: yes
+  become_user: root
+
+- name: delete the default ngnix conf
+  file: path=/etc/nginx/conf.d/default.conf state=absent
+  become: yes
+  become_user: root

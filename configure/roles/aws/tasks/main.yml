@@ -1,8 +1,51 @@
+- name: create security group for a web server
+  ec2_group:
+    name: asiancops_web_group
+    description: rules for a web server
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+#        for testing
+      - proto: tcp
+        from_port: 8000
+        to_port: 8000
+        cidr_ip: "{{ my_ip }}"
+#        for nginx to talk to gunicorn
+      - proto: tcp
+        from_port: 8000
+        to_port: 8000
+        group_id: asiancops_web_group
+  tags: sg
+
+- name: create security group for mysql
+  ec2_group:
+    name: asiancops_mysql_group
+    description: rules for a mysql DB
+    vpc_id: "{{ vpc_id }}"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        from_port: 3306
+        to_port: 3306
+        group_id: asiancops_web_group
+      - proto: all
+        group_name: asiancops_mysql_group
+  tags: sg
+
 - name: create EC2 instances
   ec2:
     key_name: "{{ ec2.key_name }}"
     instance_type: "{{ ec2.instance_type }}"
     image: "{{ ec2.image }}"
+    group: "{{ ec2.security_group }}"
     wait: yes
     assign_public_ip: yes
     region: "{{ region }}"

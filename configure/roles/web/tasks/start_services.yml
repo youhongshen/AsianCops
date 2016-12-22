@@ -1,0 +1,12 @@
+- name: enable supervisord.service
+  shell: systemctl enable supervisord.service
+  become: yes
+  become_user: root
+
+- name: start services
+  service: name={{ item }} state=restarted
+  with_items:
+  - supervisord
+  - nginx
+  become: yes
+  become_user: root

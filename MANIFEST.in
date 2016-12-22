@@ -1,4 +1,5 @@
 # stuff from collectstatic
 recursive-include AsianCops *
+prune AsianCops/db.sqlite3
 include *.txt
 include *.md

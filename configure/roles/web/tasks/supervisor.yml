@@ -1,0 +1,42 @@
+- name: install supervisor
+  pip: name=supervisor
+  become: yes
+  become_user: root
+
+- name: create /etc/supervisord.d
+  file: path=/etc/supervisord.d state=directory
+  become: yes
+  become_user: root
+
+- name: install logrotate
+  copy: src=supervisor/logrotate dest=/etc/logrotate.d/supervisor
+  become: yes
+  become_user: root
+
+- name: install supervisord.conf
+  copy: src=supervisor/supervisord.conf dest=/etc
+  become: yes
+  become_user: root
+
+- name: install tmpfile
+  copy: src=supervisor/tmpfile dest=/etc/tmpfiles.d/supervisor.conf
+  become: yes
+  become_user: root
+
+- name: create dir in /var
+  file: path={{ item }} state=directory
+  with_items:
+  - /var/log/supervisor
+  - /var/run/supervisor
+  become: yes
+  become_user: root
+
+- name: install service file
+  copy: src=supervisor/supervisord.service dest=/lib/systemd/system
+  become: yes
+  become_user: root
+
+- name: install asiancops conf
+  template: src=supervisor_asiancops.conf dest=/etc/supervisord.d/asiancops.ini
+  become: yes
+  become_user: root

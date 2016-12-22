@@ -1,5 +1,6 @@
 - name: copy artifact to remote
   copy: src={{ artifact_local_dir }}/{{ artifact }} dest=/tmp force=true
+  tags: upgrade
 
 - name: deploys artifact
   pip: name=/tmp/{{ artifact }} virtualenv={{ venv }}

@@ -1,3 +1,6 @@
-- include: python.yml
-- include: web-server.yml
+- include: env.yml
+- include: nginx.yml
+- include: gunicorn.yml
+- include: supervisor.yml
 - include: artifact.yml
+- include: start_services.yml

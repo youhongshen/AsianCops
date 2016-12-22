@@ -1,11 +1,13 @@
 ec2:
   key_name: wagtail
   instance_type: t2.micro
-  security_group: launch-wizard-1
+  security_group: asiancops_web_group
   image: ami-b63769a1
   vpc_subnet_id: subnet-2f048b02
 rds:
   instance_type: db.t2.micro
-  vpc: vpc-de7fb3b8
+  security_group: asiancops_mysql_group
 
+vpc_id: vpc-de7fb3b8
 region: us-east-1
+my_ip: 73.194.113.27/32
