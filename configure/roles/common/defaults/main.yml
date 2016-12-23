@@ -6,3 +6,4 @@ artifact_version: 1.0
 artifact: "{{ artifact_name }}-{{ artifact_version }}.tar.gz"
 
 artifact_local_dir: /tmp/AsianCops
+

@@ -3,4 +3,6 @@
 - include: gunicorn.yml
 - include: supervisor.yml
 - include: artifact.yml
+  tags: upgrade
 - include: start_services.yml
+  tags: upgrade

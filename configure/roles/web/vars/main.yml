@@ -7,10 +7,20 @@ app_dir_root: /data/asiancops
 venv_dir_prefix: "{{ app_dir_root }}/venv"
 venv_name: asiancops
 venv: "{{ venv_dir_prefix }}/{{ venv_name }}"
+app_path: "{{ venv }}/lib/python2.7/site-packages/AsianCops"
 
-db:
-  name: wagtail
-  user: admin
-  port: 3306
-  host:
+# this var is also used in AWS when creating the RDS instance
+# if we use a variable, then need to figure out how to handle multiple DB instances
+# so we hard code it for now
+db_instance_name: asian-cops-prod
 
+# we can figure out the db env values from the ansible ec2 dynamic inventory
+# by tagging the RDS instance workload_type = other, we can get these info
+
+db_endpoint: "{{ groups[db_instance_name][0] }}"
+
+#db_env:
+#  DB_NAME: "{{ hostvars[db_endpoint]['ec2_DBName'] }}"
+#  DB_USER: "{{ hostvars[db_endpoint]['ec2_master_username'] }}"
+#  DB_PORT: "{{ hostvars[db_endpoint]['ec2__port'] }}"
+#  DB_HOST: "{{ db_endpoint }}"

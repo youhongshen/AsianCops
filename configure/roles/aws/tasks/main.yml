@@ -40,7 +40,13 @@
         group_name: asiancops_mysql_group
   tags: sg
 
-- name: create EC2 instances
+# new in 2.3
+#- name: get group facts
+#  ec2_group_facts:
+#  register: group_facts
+#  tags: sg
+
+- name: create EC2 instance
   ec2:
     key_name: "{{ ec2.key_name }}"
     instance_type: "{{ ec2.instance_type }}"
@@ -51,6 +57,10 @@
     region: "{{ region }}"
     vpc_subnet_id: "{{ ec2.vpc_subnet_id }}"
     count: 1
+#    instance tag of workload_other creating a separate group the way it works for RDFS
+#does not apply to EC2 instances
+    instance_tags:
+      group: asiancops_web
   register: ec2
   tags: ec2
 
@@ -69,7 +79,18 @@
     port: 3306
     publicly_accessible: yes
     region: "{{ region }}"
+#    TODO use the ec2_group_facts module to look up the security group id
+    vpc_security_groups: sg-e77d459a
+    subnet: "{{ rds.subnet }}"
 #    5GB
     size: 5
+# - the tag workload_type = other on a RDS seems to create a group like this in ansible
+#  "asian-cops-prod": [
+#    "asian-cops-prod.cn0m6pjilrg2.us-east-1.rds.amazonaws.com"
+#  ],
+# - adding other tags on a RDS instance doesn't seem to do anything for ansible
+# - why its called instance_tags for ec2 but tags for rds?
+    tags:
+      workload_type: other
   tags: rds
 

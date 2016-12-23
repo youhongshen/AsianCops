@@ -7,6 +7,7 @@ ec2:
 rds:
   instance_type: db.t2.micro
   security_group: asiancops_mysql_group
+  subnet: default
 
 vpc_id: vpc-de7fb3b8
 region: us-east-1

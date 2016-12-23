@@ -1,0 +1,6 @@
+{
+  "NAME": "{{ hostvars[db_endpoint]['ec2_DBName'] }}",
+  "USER": "{{ hostvars[db_endpoint]['ec2_master_username'] }}",
+  "PORT": "{{ hostvars[db_endpoint]['ec2__port'] }}",
+  "HOST": "{{ db_endpoint }}"
+}

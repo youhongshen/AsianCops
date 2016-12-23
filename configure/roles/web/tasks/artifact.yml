@@ -1,16 +1,55 @@
 - name: copy artifact to remote
   copy: src={{ artifact_local_dir }}/{{ artifact }} dest=/tmp force=true
-  tags: upgrade
+  become: yes
+  become_user: "{{ app_user }}"
 
 - name: deploys artifact
   pip: name=/tmp/{{ artifact }} virtualenv={{ venv }}
+  become: yes
+  become_user: "{{ app_user }}"
 
 - name: upgrade artifact
   pip:
     name: "/tmp/{{ artifact }}"
     virtualenv: "{{ venv }}"
     extra_args: "--upgrade --force-reinstall --no-deps"
-  tags: upgrade
+  become: yes
+  become_user: "{{ app_user }}"
 
-#- name: writes secret key file
-#  lineinfile: line={{ secure_vars.django.prod_secret_key }} dest={{ artifact_install_dir }}
+# no need to fix file mode for these files since /data/asiancops/venv is 700
+- name: deliver the secret key file
+  shell: |
+    echo "{{ secure_vars.django.prod_secret_key }}" > {{ app_path }}/secret-key.txt
+    chmod 600 {{ app_path }}/secret-key.txt
+  become: yes
+  become_user: "{{ app_user }}"
+
+- name: deliver the db password file
+  shell: |
+    echo "{{ secure_vars.rds.master_db_password }}" > {{ app_path }}/db-password.txt
+    chmod 600 {{ app_path }}/db-password.txt
+  become: yes
+  become_user: "{{ app_user }}"
+
+- name: deliver the db env file
+  template: src=db_env.json dest={{ app_path }}
+  become: yes
+  become_user: "{{ app_user }}"
+
+# TODO figure out how to exclude it from the package
+- name: remove db.sqlite3
+  file: path={{ app_path }}/db.sqlite3 state=absent
+  become: yes
+  become_user: "{{ app_user }}"
+
+- name: run django migrate
+  django_manage:
+    command: migrate
+    virtualenv: "{{ venv }}"
+#    manage.py is packaged as a script
+    app_path: "{{ venv }}/bin"
+    settings: AsianCops.settings.production
+    pythonpath: "{{ app_path }}"
+#  environment: "{{ db_env }}"
+  become: yes
+  become_user: "{{ app_user }}"
