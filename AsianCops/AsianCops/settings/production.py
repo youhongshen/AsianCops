@@ -23,6 +23,7 @@ DATABASES = {
         # 'USER': 'admin',
         'PASSWORD': DB_PW,
         # 'HOST': 'asian-cops-prod.cn0m6pjilrg2.us-east-1.rds.amazonaws.com',
+        # 'PORT': 3306
         # figure out how to use the cnf file to hide username/password
         'OPTIONS': {
             # 'read_default_file': '/path/to/my.cnf',

@@ -42,14 +42,17 @@
   become: yes
   become_user: "{{ app_user }}"
 
-- name: run django migrate
+- name: run django collect static and migrate
   django_manage:
-    command: migrate
+    command: "{{ item }}"
     virtualenv: "{{ venv }}"
 #    manage.py is packaged as a script
     app_path: "{{ venv }}/bin"
     settings: AsianCops.settings.production
     pythonpath: "{{ app_path }}"
 #  environment: "{{ db_env }}"
+  with_items:
+  - collectstatic
+  - migrate
   become: yes
   become_user: "{{ app_user }}"
