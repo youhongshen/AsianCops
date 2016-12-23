@@ -1,4 +1,4 @@
-from wagtail.wagtailcore.blocks import StructBlock, TextBlock, RichTextBlock, ListBlock, URLBlock
+from wagtail.wagtailcore.blocks import StructBlock, TextBlock, RichTextBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 

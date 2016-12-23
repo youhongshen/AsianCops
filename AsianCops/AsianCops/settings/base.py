@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import json
+import logging
 import os
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,7 +116,6 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
-
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "AsianCops"
@@ -124,15 +125,52 @@ WAGTAIL_SITE_NAME = "AsianCops"
 BASE_URL = 'http://example.com'
 ALLOWED_HOSTS = ['*']
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-# 'verbose': {
-#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-# }
+try:
+    with open(os.path.join(BASE_DIR, 'config.json')) as f:
+        config = json.loads(f.read())
+except IOError:
+    config = {
+        'log_dir': '/tmp',
+    }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'django': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': config['log_dir'] + '/django.log',
+        },
+        'asiancops': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': config['log_dir'] + '/asiancops.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'django'],
+            'level': os.getenv('DJANGO_LOG_MAIN', 'INFO'),
+        },
+        'asiancops': {
+            'handlers': ['console', 'asiancops'],
+            'level': os.getenv('DJANGO_LOG_ASIANCOPS', 'DEBUG'),
+        },
+    }
+}

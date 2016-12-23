@@ -5,6 +5,7 @@ app_group: ec2-user
 app_dir_root: /data/asiancops
 static_root: "{{ app_dir_root }}/static"
 media_root: "{{ app_dir_root }}/media"
+log_dir: "{{ app_dir_root }}/logs"
 
 venv_dir_prefix: "{{ app_dir_root }}/venv"
 venv_name: asiancops

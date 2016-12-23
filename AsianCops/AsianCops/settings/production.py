@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from .base import *
-import json
 
 DEBUG = False
 
@@ -12,9 +11,6 @@ except ImportError:
 
 with open(os.path.join(BASE_DIR, 'db-password.txt')) as f:
     DB_PW = f.read().strip()
-
-with open(os.path.join(BASE_DIR, 'config.json')) as f:
-    config = json.loads(f.read())
 
 DATABASES = {
     'default': {
@@ -43,3 +39,4 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = config['media_root']
 MEDIA_URL = '/media/'
+

@@ -8,8 +8,8 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from home.models.blocks import ImageBlock, EventListBlock, PeopleBlock
-from home.models.forms import FormPage
+from .blocks import ImageBlock, EventListBlock, PeopleBlock
+from .forms import FormPage
 
 
 class HomePage(Page):

@@ -38,11 +38,6 @@
   become: yes
   become_user: "{{ app_user }}"
 
-- name: create the static directory
-  file: path={{ static_root }} state=directory
-  become: yes
-  become_user: "{{ app_user }}"
-
 - name: run django collectstatic
   django_manage:
     command: collectstatic

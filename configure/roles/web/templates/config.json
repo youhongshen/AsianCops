@@ -6,5 +6,6 @@
     "HOST": "{{ db_endpoint }}"
   },
   "static_root": "{{ static_root }}",
-  "media_root": "{{ media_root }}"
+  "media_root": "{{ media_root }}",
+  "log_dir": "{{ log_dir }}"
 }
