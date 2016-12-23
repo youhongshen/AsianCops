@@ -13,8 +13,8 @@ except ImportError:
 with open(os.path.join(BASE_DIR, 'db-password.txt')) as f:
     DB_PW = f.read().strip()
 
-with open(os.path.join(BASE_DIR, 'db_env.json')) as f:
-    db_env = json.loads(f.read())
+with open(os.path.join(BASE_DIR, 'config.json')) as f:
+    config = json.loads(f.read())
 
 DATABASES = {
     'default': {
@@ -33,7 +33,13 @@ DATABASES = {
     }
 }
 
-DATABASES['default'].update(db_env)
+DATABASES['default'].update(config['db_env'])
 
 with open(os.path.join(BASE_DIR, 'secret-key.txt')) as f:
     SECRET_KEY = f.read().strip()
+
+STATIC_ROOT = config['static_root']
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = config['media_root']
+MEDIA_URL = '/media/'
