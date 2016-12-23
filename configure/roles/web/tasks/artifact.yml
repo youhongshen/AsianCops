@@ -16,19 +16,8 @@
   become: yes
   become_user: "{{ app_user }}"
 
-- name: deliver the password files
-  copy:
-    content: "{{ item.content }}"
-    dest: "{{ app_path }}/{{ item.file }}"
-    mode: 0600
-  with_items:
-  - { 'content': "{{ secure_vars.rds.master_db_password }}", 'file': 'db-password.txt' }
-  - { 'content': "{{ secure_vars.django.prod_secret_key }}", 'file': 'secret-key.txt' }
-  become: yes
-  become_user: "{{ app_user }}"
-
-- name: deliver the db env file
-  template: src=config.json dest={{ app_path }}
+- name: deliver the config file
+  template: src=config.json dest={{ app_path }} mode=0600
   become: yes
   become_user: "{{ app_user }}"
 

@@ -9,15 +9,12 @@ try:
 except ImportError:
     pass
 
-with open(os.path.join(BASE_DIR, 'db-password.txt')) as f:
-    DB_PW = f.read().strip()
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'wagtail',
         # 'USER': 'admin',
-        'PASSWORD': DB_PW,
+        # 'PASSWORD': DB_PW,
         # 'HOST': 'asian-cops-prod.cn0m6pjilrg2.us-east-1.rds.amazonaws.com',
         # 'PORT': 3306
         # figure out how to use the cnf file to hide username/password
@@ -30,9 +27,7 @@ DATABASES = {
 }
 
 DATABASES['default'].update(config['db_env'])
-
-with open(os.path.join(BASE_DIR, 'secret-key.txt')) as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = config['secret_key']
 
 STATIC_ROOT = config['static_root']
 STATIC_URL = '/static/'
@@ -40,3 +35,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = config['media_root']
 MEDIA_URL = '/media/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config['smtp_env']['host']
+EMAIL_PORT = config['smtp_env']['port']
+EMAIL_HOST_USER = config['smtp_env']['user']
+EMAIL_HOST_PASSWORD = config['smtp_env']['password']
+EMAIL_USE_TLS = eval(config['smtp_env']['use_tls'])

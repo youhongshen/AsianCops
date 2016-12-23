@@ -3,9 +3,18 @@
     "NAME": "{{ hostvars[db_endpoint]['ec2_DBName'] }}",
     "USER": "{{ hostvars[db_endpoint]['ec2_master_username'] }}",
     "PORT": "{{ hostvars[db_endpoint]['ec2__port'] }}",
-    "HOST": "{{ db_endpoint }}"
+    "HOST": "{{ db_endpoint }}",
+    "PASSWORD": "{{ secure_vars.rds.master_db_password }}"
   },
   "static_root": "{{ static_root }}",
   "media_root": "{{ media_root }}",
-  "log_dir": "{{ log_dir }}"
+  "log_dir": "{{ log_dir }}",
+  "smtp_env": {
+    "host": "email-smtp.us-east-1.amazonaws.com",
+    "port": 587,
+    "user": "{{ secure_vars.ses.smtp_username }}",
+    "password": "{{ secure_vars.ses.smtp_password }}",
+    "use_tls": "True"
+  },
+  "secret_key": "{{ secure_vars.django.prod_secret_key }}"
 }
