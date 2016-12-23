@@ -155,12 +155,17 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
             'filename': config['log_dir'] + '/django.log',
+            # 2 MB
+            'maxBytes': 2000000,
+            'backupCount': 10,
         },
         'asiancops': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
             'filename': config['log_dir'] + '/asiancops.log',
+            'maxBytes': 2000000,
+            'backupCount': 10,
         },
     },
     'loggers': {
